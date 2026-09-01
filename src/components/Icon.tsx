@@ -21,7 +21,7 @@ export function Icon({
 
 export function Stars({ rating = 5 }: { rating?: number }) {
   return (
-    <div className="mb-2 flex items-center gap-1" aria-label={`${rating} out of 5 stars`}>
+    <div role="img" className="mb-2 flex items-center gap-1" aria-label={`${rating} out of 5 stars`}>
       {[1, 2, 3, 4, 5].map((i) => (
         <Icon
           key={i}

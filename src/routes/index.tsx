@@ -28,9 +28,9 @@ export const Route = createFileRoute("/")({
 
 function HomePage() {
   return (
-    <div className="flex min-h-screen flex-col bg-background">
+    <div className="flex min-h-dvh flex-col bg-background">
       <SiteHeader />
-      <main className="flex-grow">
+      <main id="main-content" className="flex-grow">
         {/* Hero */}
         <section className="page-x mx-auto grid max-w-page grid-cols-1 items-center gap-gutter py-12 md:min-h-[80vh] md:grid-cols-2 md:py-24">
           <div className="z-10 flex max-w-xl flex-col gap-6">

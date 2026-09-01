@@ -30,7 +30,7 @@ function ShopPage() {
   return (
     <div className="flex min-h-dvh flex-col bg-surface">
       <SiteHeader />
-      <main className="page-x mx-auto w-full max-w-page flex-grow py-12 md:py-24">
+      <main id="main-content" className="page-x mx-auto w-full max-w-page flex-grow py-12 md:py-24">
         <div className="mb-16 text-center">
           <h1 className="mb-8 text-display-sm tracking-tighter text-primary md:text-display-lg">
             The Collection
@@ -71,16 +71,20 @@ function ShopPage() {
           <div className="flex-grow">
             <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:gap-12 lg:grid-cols-3">
               {/* Feature card */}
-              <article className="group col-span-1 flex cursor-pointer flex-col overflow-hidden rounded-2xl bg-surface-lowest shadow-soft hover-lift sm:col-span-2 sm:flex-row lg:col-span-2">
+              <article className="group col-span-1 flex flex-col overflow-hidden rounded-2xl bg-surface-lowest shadow-soft hover-lift sm:col-span-2 sm:flex-row lg:col-span-2">
                 <div className="relative aspect-square w-full overflow-hidden bg-surface-container sm:aspect-auto sm:w-1/2">
                   <img
                     alt="The Storyteller Frame"
                     src={images.poster}
                     className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                  <div className="absolute top-4 right-4 rounded-full bg-surface/80 p-2 opacity-0 backdrop-blur-sm transition-opacity group-hover:opacity-100">
+                  <button
+                    type="button"
+                    aria-label="Save The Storyteller Frame"
+                    className="absolute top-4 right-4 flex h-11 w-11 items-center justify-center rounded-full bg-surface/80 backdrop-blur-sm transition-opacity focus-visible:opacity-100 md:opacity-0 md:group-hover:opacity-100"
+                  >
                     <Icon name="favorite" className="text-primary" />
-                  </div>
+                  </button>
                 </div>
                 <div className="flex w-full flex-col justify-center p-8 sm:w-1/2">
                   <Stars rating={4.5} />
@@ -105,7 +109,7 @@ function ShopPage() {
               <CompactCard name="Monogram Case" price="12.00 KD" rating={5} image={images.phoneCase} />
 
               {/* Landscape card */}
-              <article className="group col-span-1 flex cursor-pointer flex-col overflow-hidden rounded-2xl bg-surface-lowest shadow-soft hover-lift sm:col-span-2 sm:flex-row">
+              <article className="group col-span-1 flex flex-col overflow-hidden rounded-2xl bg-surface-lowest shadow-soft hover-lift sm:col-span-2 sm:flex-row">
                 <div className="relative aspect-square w-full overflow-hidden bg-surface-container sm:aspect-auto sm:w-2/5">
                   <img
                     alt="Signature Graphic Tee"
@@ -159,9 +163,9 @@ function FilterGroup({
 }) {
   return (
     <div>
-      <h3 className="mb-4 border-b border-outline-variant/10 pb-2 text-headline-md text-primary">
+      <h2 className="mb-4 border-b border-outline-variant/10 pb-2 text-headline-md text-primary">
         {title}
-      </h3>
+      </h2>
       <div className="space-y-3">
         {options.map((o) => (
           <label key={o} className="group flex cursor-pointer items-center space-x-3">
@@ -192,23 +196,33 @@ function CompactCard({
   image: string;
 }) {
   return (
-    <article className="group flex cursor-pointer flex-col overflow-hidden rounded-2xl bg-surface-lowest shadow-soft hover-lift">
+    <article className="group flex flex-col overflow-hidden rounded-2xl bg-surface-lowest shadow-soft hover-lift">
       <div className="relative aspect-square w-full overflow-hidden bg-surface-container">
         <img
           alt={name}
           src={image}
           className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
-        <div className="absolute top-4 right-4 rounded-full bg-surface/80 p-2 opacity-0 backdrop-blur-sm transition-opacity group-hover:opacity-100">
+        <button
+          type="button"
+          aria-label={`Save ${name}`}
+          className="absolute top-4 right-4 flex h-11 w-11 items-center justify-center rounded-full bg-surface/80 backdrop-blur-sm transition-opacity focus-visible:opacity-100 md:opacity-0 md:group-hover:opacity-100"
+        >
           <Icon name="favorite" className="text-primary" />
-        </div>
+        </button>
       </div>
       <div className="flex flex-grow flex-col p-6">
         <Stars rating={rating} />
         <h3 className="mb-1 text-body-md font-bold text-primary">{name}</h3>
         <div className="mt-auto flex items-center justify-between pt-4">
           <span className="text-body-md text-on-surface-variant">{price}</span>
-          <Icon name="add_circle" className="text-primary transition-colors group-hover:text-accent" />
+          <Link
+            to="/customize"
+            aria-label={`Customize ${name}`}
+            className="flex h-11 w-11 items-center justify-center rounded-full text-primary transition-colors group-hover:text-accent"
+          >
+            <Icon name="add_circle" />
+          </Link>
         </div>
       </div>
     </article>

@@ -16,6 +16,9 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-outline-variant/10 bg-surface shadow-sm">
+      <a href="#main-content" className="skip-link">
+        Skip to main content
+      </a>
       <div className="page-x mx-auto flex w-full max-w-page items-center justify-between py-4">
         <Link
           to="/"
@@ -24,7 +27,7 @@ export function SiteHeader() {
           MEMENTO
         </Link>
 
-        <nav className="hidden items-center gap-8 md:flex">
+        <nav aria-label="Main" className="hidden items-center gap-8 md:flex">
           {links.map((l) => (
             <Link
               key={l.to}
@@ -52,7 +55,7 @@ export function SiteHeader() {
             <Link
               to="/checkout"
               aria-label="Cart"
-              className="rounded-full p-2 transition-colors hover:bg-surface-high/60 hover:text-primary"
+              className="flex h-11 w-11 items-center justify-center rounded-full transition-colors hover:bg-surface-high/60 hover:text-primary"
             >
               <Icon name="shopping_cart" />
             </Link>
@@ -65,9 +68,11 @@ export function SiteHeader() {
           </Link>
           <button
             type="button"
-            aria-label="Menu"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            aria-controls="mobile-nav"
             onClick={() => setOpen((v) => !v)}
-            className="text-primary md:hidden"
+            className="flex h-11 w-11 items-center justify-center rounded-lg text-primary md:hidden"
           >
             <Icon name={open ? "close" : "menu"} />
           </button>
@@ -75,7 +80,7 @@ export function SiteHeader() {
       </div>
 
       {open && (
-        <nav className="page-x flex flex-col gap-1 border-t border-outline-variant/10 pb-4 md:hidden">
+        <nav id="mobile-nav" aria-label="Mobile" className="page-x flex flex-col gap-1 border-t border-outline-variant/10 pb-4 md:hidden">
           {links.map((l) => (
             <Link
               key={l.to}

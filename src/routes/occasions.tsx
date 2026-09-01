@@ -53,7 +53,7 @@ function OccasionsPage() {
   return (
     <div className="flex min-h-dvh flex-col bg-background">
       <SiteHeader />
-      <main className="page-x mx-auto w-full max-w-page flex-grow py-12 md:py-24">
+      <main id="main-content" className="page-x mx-auto w-full max-w-page flex-grow py-12 md:py-24">
         <div className="mb-16 max-w-2xl">
           <h1 className="mb-4 text-display-sm text-primary md:text-display-lg">
             Gifts For Every Occasion

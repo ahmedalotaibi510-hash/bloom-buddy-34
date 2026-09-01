@@ -52,7 +52,7 @@ function CustomizePage() {
   return (
     <div className="flex min-h-dvh flex-col bg-background">
       <SiteHeader />
-      <main className="page-x mx-auto grid w-full max-w-page flex-grow grid-cols-1 gap-gutter py-12 lg:grid-cols-12 md:py-20">
+      <main id="main-content" className="page-x mx-auto grid w-full max-w-page flex-grow grid-cols-1 gap-gutter py-12 lg:grid-cols-12 md:py-20">
         {/* Inputs */}
         <section className="flex flex-col space-y-8 lg:col-span-5">
           <div>

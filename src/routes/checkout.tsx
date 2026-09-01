@@ -43,7 +43,7 @@ function CheckoutPage() {
   return (
     <div className="flex min-h-dvh flex-col bg-background">
       <SiteHeader />
-      <main className="page-x mx-auto max-w-page py-12 md:py-24">
+      <main id="main-content" className="page-x mx-auto max-w-page py-12 md:py-24">
         <div className="mb-16 text-center md:text-left">
           <h1 className="mb-4 text-display-sm text-primary md:text-display-lg">Secure Checkout</h1>
           <p className="text-headline-md italic text-on-surface-variant">
@@ -63,7 +63,11 @@ function CheckoutPage() {
 
             <section className="rounded-xl bg-surface-lowest p-6 shadow-soft md:p-8">
               <h2 className="mb-6 text-headline-lg text-primary">Shipping Details</h2>
-              <form className="space-y-6">
+              <form
+                id="shipping-form"
+                className="space-y-6"
+                onSubmit={(e) => e.preventDefault()}
+              >
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                   <Field label="First Name" placeholder="Emma" />
                   <Field label="Last Name" placeholder="Thompson" />
@@ -136,7 +140,8 @@ function CheckoutPage() {
               </div>
 
               <button
-                type="button"
+                type="submit"
+                form="shipping-form"
                 className="flex w-full items-center justify-center gap-2 rounded-lg bg-primary py-4 text-label-lg text-on-primary transition-all duration-300 hover:bg-inverse-surface active:scale-95"
               >
                 Continue to Payment

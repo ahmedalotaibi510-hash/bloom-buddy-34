@@ -28,7 +28,7 @@ export const Route = createFileRoute("/shop")({
 
 function ShopPage() {
   return (
-    <div className="flex min-h-screen flex-col bg-surface">
+    <div className="flex min-h-dvh flex-col bg-surface">
       <SiteHeader />
       <main className="page-x mx-auto w-full max-w-page flex-grow py-12 md:py-24">
         <div className="mb-16 text-center">

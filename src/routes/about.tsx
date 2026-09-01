@@ -27,7 +27,7 @@ export const Route = createFileRoute("/about")({
 
 function AboutPage() {
   return (
-    <div className="flex min-h-screen flex-col bg-background">
+    <div className="flex min-h-dvh flex-col bg-background">
       <SiteHeader />
       <main className="page-x mx-auto w-full max-w-page flex-grow py-12 md:py-24">
         <div className="grid grid-cols-1 items-center gap-gutter md:grid-cols-2 md:gap-16">

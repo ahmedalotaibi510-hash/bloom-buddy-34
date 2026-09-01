@@ -41,7 +41,7 @@ const cart = [
 
 function CheckoutPage() {
   return (
-    <div className="flex min-h-screen flex-col bg-background">
+    <div className="flex min-h-dvh flex-col bg-background">
       <SiteHeader />
       <main className="page-x mx-auto max-w-page py-12 md:py-24">
         <div className="mb-16 text-center md:text-left">

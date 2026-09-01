@@ -51,7 +51,7 @@ const occasions = [
 
 function OccasionsPage() {
   return (
-    <div className="flex min-h-screen flex-col bg-background">
+    <div className="flex min-h-dvh flex-col bg-background">
       <SiteHeader />
       <main className="page-x mx-auto w-full max-w-page flex-grow py-12 md:py-24">
         <div className="mb-16 max-w-2xl">

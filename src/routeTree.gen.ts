@@ -15,6 +15,7 @@ import { Route as CheckoutRouteImport } from './routes/checkout'
 import { Route as CustomizeRouteImport } from './routes/customize'
 import { Route as OccasionsRouteImport } from './routes/occasions'
 import { Route as ShopRouteImport } from './routes/shop'
+import { Route as TrackRouteImport } from './routes/track'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -46,6 +47,11 @@ const ShopRoute = ShopRouteImport.update({
   path: '/shop',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TrackRoute = TrackRouteImport.update({
+  id: '/track',
+  path: '/track',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -54,6 +60,7 @@ export interface FileRoutesByFullPath {
   '/customize': typeof CustomizeRoute
   '/occasions': typeof OccasionsRoute
   '/shop': typeof ShopRoute
+  '/track': typeof TrackRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -62,6 +69,7 @@ export interface FileRoutesByTo {
   '/customize': typeof CustomizeRoute
   '/occasions': typeof OccasionsRoute
   '/shop': typeof ShopRoute
+  '/track': typeof TrackRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -71,13 +79,27 @@ export interface FileRoutesById {
   '/customize': typeof CustomizeRoute
   '/occasions': typeof OccasionsRoute
   '/shop': typeof ShopRoute
+  '/track': typeof TrackRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/about' | '/checkout' | '/customize' | '/occasions' | '/shop'
+    | '/'
+    | '/about'
+    | '/checkout'
+    | '/customize'
+    | '/occasions'
+    | '/shop'
+    | '/track'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/checkout' | '/customize' | '/occasions' | '/shop'
+  to:
+    | '/'
+    | '/about'
+    | '/checkout'
+    | '/customize'
+    | '/occasions'
+    | '/shop'
+    | '/track'
   id:
     | '__root__'
     | '/'
@@ -86,6 +108,7 @@ export interface FileRouteTypes {
     | '/customize'
     | '/occasions'
     | '/shop'
+    | '/track'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -95,6 +118,7 @@ export interface RootRouteChildren {
   CustomizeRoute: typeof CustomizeRoute
   OccasionsRoute: typeof OccasionsRoute
   ShopRoute: typeof ShopRoute
+  TrackRoute: typeof TrackRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -141,6 +165,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ShopRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/track': {
+      id: '/track'
+      path: '/track'
+      fullPath: '/track'
+      preLoaderRoute: typeof TrackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -151,6 +182,7 @@ const rootRouteChildren: RootRouteChildren = {
   CustomizeRoute: CustomizeRoute,
   OccasionsRoute: OccasionsRoute,
   ShopRoute: ShopRoute,
+  TrackRoute: TrackRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

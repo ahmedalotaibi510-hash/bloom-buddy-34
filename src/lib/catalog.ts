@@ -1,4 +1,4 @@
-export const images = {
+const rawImages = {
   hero:
     "https://lh3.googleusercontent.com/aida-public/AB6AXuA78S4pcBiH6H-m2mCoNMkHKJAWsSez4gdG4jprdJmL9vyO70PAjDTQdhs57ArA02YhpFWlWAwlDu9uUFnbwqim9weeBfI1S4L7ahK5G5i07cP2kcEme6dHrUkgIxOtrxy8-Jmi1CIP6c7p5flkcTOpytJMfi69R7TMwWOnZIORXRsuBJqD9xFwg2dDFsuHzvx9CD3UqN4H0RKFjsAvkFdApvNxdsYxU-b-Z7PzG_qnJwRHB683xv1zHg",
   poster:
@@ -22,6 +22,19 @@ export const images = {
   framePreview:
     "https://lh3.googleusercontent.com/aida-public/AB6AXuC8yJ-sWNqd86yv2eDC2ommFqpbKsRn7QU2sNce95dRpMnh0_TEX2zE9wR29AarQ1NZKXxbL8tXPype-T6ZJz2uyNLA-Esl18gH1Mc-bkASmlnYz9NIOsR9AP5_3ZQtNAGahMgEZOk3niFTX6aUAMS-rIeuLkCXde8Xw5audvueKZqJ79cBHURl-KRVnArOclP43v3-MhlHhP_MDWVcJMlu7nMn-6FOtD-dhc_BI-8FEP1kEwJbiVYRlQ",
 };
+
+/** Request a higher-resolution rendition of a hotlinked image. */
+export const hq = (url: string, width = 1600) => `${url}=w${width}`;
+
+/** Sharp, high-DPI renditions used across the app. */
+export const images = Object.fromEntries(
+  Object.entries(rawImages).map(([key, url]) => [key, hq(url)]),
+) as typeof rawImages;
+
+/** Responsive srcset for hotlinked imagery. */
+export const srcSet = (url: string) =>
+  [640, 960, 1280, 1600, 2048].map((w) => `${hq(url, w)} ${w}w`).join(", ");
+
 
 export type Product = {
   name: string;

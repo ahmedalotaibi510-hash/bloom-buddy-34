@@ -35,7 +35,10 @@ export default function OrderMap({ path, progress }: Props) {
     map.current = m;
     m.addControl(new maplibregl.NavigationControl({ showCompass: false }), "top-right");
 
+    m.on("error", (e) => console.error("[map error]", e && (e as any).error));
+    (window as any).__map = m;
     m.on("load", () => {
+      console.log("[map] load fired");
       m.addSource("route", {
         type: "geojson",
         data: {

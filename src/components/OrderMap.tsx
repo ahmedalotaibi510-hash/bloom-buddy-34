@@ -20,12 +20,15 @@ export default function OrderMap({ path, progress }: Props) {
   const courier = useRef<maplibregl.Marker | null>(null);
 
   useEffect(() => {
-    if (!container.current || map.current) return;
+    const start = path[0];
+    const end = path[path.length - 1];
+    const mid = path[Math.floor(path.length / 2)];
+    if (!container.current || map.current || !start || !end || !mid) return;
 
     const m = new maplibregl.Map({
       container: container.current,
       style: `https://api.maptiler.com/maps/streets-v2/style.json?key=${MAPTILER_KEY}`,
-      center: path[Math.floor(path.length / 2)],
+      center: mid,
       zoom: 11.5,
       attributionControl: { compact: true },
     });
@@ -66,10 +69,10 @@ export default function OrderMap({ path, progress }: Props) {
       };
 
       new maplibregl.Marker({ element: pin("Workshop", "#3f3a35") })
-        .setLngLat(path[0])
+        .setLngLat(start)
         .addTo(m);
       new maplibregl.Marker({ element: pin("You", "#b4552f") })
-        .setLngLat(path[path.length - 1])
+        .setLngLat(end)
         .addTo(m);
 
       const truck = document.createElement("div");
@@ -79,12 +82,12 @@ export default function OrderMap({ path, progress }: Props) {
       truck.innerHTML =
         '<span class="material-symbols-outlined" style="font-size:20px">local_shipping</span>';
       courier.current = new maplibregl.Marker({ element: truck })
-        .setLngLat(path[0])
+        .setLngLat(start)
         .addTo(m);
 
       const bounds = path.reduce(
         (b, p) => b.extend(p),
-        new maplibregl.LngLatBounds(path[0], path[0]),
+        new maplibregl.LngLatBounds(start, start),
       );
       m.fitBounds(bounds, { padding: 70, duration: 0 });
     });

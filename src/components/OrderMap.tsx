@@ -1,4 +1,4 @@
-import maplibregl from "maplibre-gl";
+import * as maplibregl from "maplibre-gl";
 import { useEffect, useRef } from "react";
 
 import "maplibre-gl/dist/maplibre-gl.css";
@@ -100,8 +100,9 @@ export default function OrderMap({ path, progress }: Props) {
     if (!courier.current) return;
     const clamped = Math.min(Math.max(progress, 0), 1);
     const i = clamped * (path.length - 1);
-    const a = path[Math.floor(i)];
-    const b = path[Math.min(Math.ceil(i), path.length - 1)];
+    const a = path[Math.floor(i)] ?? path[0];
+    const b = path[Math.min(Math.ceil(i), path.length - 1)] ?? path[0];
+    if (!a || !b) return;
     const t = i - Math.floor(i);
     courier.current.setLngLat([a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t]);
   }, [progress, path]);

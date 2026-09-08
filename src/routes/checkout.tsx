@@ -43,6 +43,26 @@ const cart = [
 ];
 
 function CheckoutPage() {
+  const startCheckout = useServerFn(createCheckoutSession);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handlePay = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await startCheckout({ data: { origin: window.location.origin } });
+      if (res.url) {
+        window.location.href = res.url;
+        return;
+      }
+      setError(res.error ?? "Something went wrong. Please try again.");
+    } catch {
+      setError("Something went wrong. Please try again.");
+    }
+    setLoading(false);
+  };
+
   return (
     <div className="flex min-h-dvh flex-col bg-background">
       <SiteHeader />

@@ -1,9 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
+import { useState } from "react";
 
 import { Icon } from "@/components/Icon";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { images } from "@/lib/catalog";
+import { createCheckoutSession } from "@/lib/stripe.functions";
 
 export const Route = createFileRoute("/checkout")({
   head: () => ({

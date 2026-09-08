@@ -1,9 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
+import { useState } from "react";
 
 import { Icon } from "@/components/Icon";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { images } from "@/lib/catalog";
+import { createCheckoutSession } from "@/lib/stripe.functions";
 
 export const Route = createFileRoute("/checkout")({
   head: () => ({
@@ -40,6 +43,26 @@ const cart = [
 ];
 
 function CheckoutPage() {
+  const startCheckout = useServerFn(createCheckoutSession);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handlePay = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await startCheckout({ data: { origin: window.location.origin } });
+      if (res.url) {
+        window.location.href = res.url;
+        return;
+      }
+      setError(res.error ?? "Something went wrong. Please try again.");
+    } catch {
+      setError("Something went wrong. Please try again.");
+    }
+    setLoading(false);
+  };
+
   return (
     <div className="flex min-h-dvh flex-col bg-background">
       <SiteHeader />
@@ -139,14 +162,22 @@ function CheckoutPage() {
                 </div>
               </div>
 
+              {error ? (
+                <p role="alert" className="mb-4 rounded-lg bg-surface-low p-3 text-label-sm text-primary">
+                  {error}
+                </p>
+              ) : null}
+
               <button
-                type="submit"
-                form="shipping-form"
-                className="flex w-full items-center justify-center gap-2 rounded-lg bg-primary py-4 text-label-lg text-on-primary transition-all duration-300 hover:bg-inverse-surface active:scale-95"
+                type="button"
+                disabled={loading}
+                onClick={handlePay}
+                className="flex w-full items-center justify-center gap-2 rounded-lg bg-primary py-4 text-label-lg text-on-primary transition-all duration-300 hover:bg-inverse-surface active:scale-95 disabled:opacity-60"
               >
-                Continue to Payment
+                {loading ? "Redirecting to payment..." : "Continue to Payment"}
                 <Icon name="arrow_forward" className="text-[20px]" />
               </button>
+
 
               <div className="mt-6 text-center">
                 <p className="flex items-center justify-center gap-1 text-label-sm text-on-surface-variant">

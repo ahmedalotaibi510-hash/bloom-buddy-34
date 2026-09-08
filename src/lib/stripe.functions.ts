@@ -32,10 +32,14 @@ export const createCheckoutSession = createServerFn({ method: "POST" })
     body.set("success_url", `${data.origin}/track?paid=1`);
     body.set("cancel_url", `${data.origin}/checkout?canceled=1`);
 
+    // The Stripe account cannot settle KWD, so charge the USD equivalent.
+    const USD_PER_KD = 3.25;
+    const toUsdCents = (fils: number) => Math.round((fils / 1000) * USD_PER_KD * 100);
+
     [...CART, SHIPPING].forEach((line, i) => {
       body.set(`line_items[${i}][quantity]`, String(line.quantity));
-      body.set(`line_items[${i}][price_data][currency]`, "kwd");
-      body.set(`line_items[${i}][price_data][unit_amount]`, String(line.amount));
+      body.set(`line_items[${i}][price_data][currency]`, "usd");
+      body.set(`line_items[${i}][price_data][unit_amount]`, String(toUsdCents(line.amount)));
       body.set(`line_items[${i}][price_data][product_data][name]`, line.name);
     });
 

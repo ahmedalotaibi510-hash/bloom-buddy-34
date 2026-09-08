@@ -162,14 +162,22 @@ function CheckoutPage() {
                 </div>
               </div>
 
+              {error ? (
+                <p role="alert" className="mb-4 rounded-lg bg-surface-low p-3 text-label-sm text-primary">
+                  {error}
+                </p>
+              ) : null}
+
               <button
-                type="submit"
-                form="shipping-form"
-                className="flex w-full items-center justify-center gap-2 rounded-lg bg-primary py-4 text-label-lg text-on-primary transition-all duration-300 hover:bg-inverse-surface active:scale-95"
+                type="button"
+                disabled={loading}
+                onClick={handlePay}
+                className="flex w-full items-center justify-center gap-2 rounded-lg bg-primary py-4 text-label-lg text-on-primary transition-all duration-300 hover:bg-inverse-surface active:scale-95 disabled:opacity-60"
               >
-                Continue to Payment
+                {loading ? "Redirecting to payment..." : "Continue to Payment"}
                 <Icon name="arrow_forward" className="text-[20px]" />
               </button>
+
 
               <div className="mt-6 text-center">
                 <p className="flex items-center justify-center gap-1 text-label-sm text-on-surface-variant">
